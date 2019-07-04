@@ -1,5 +1,5 @@
 #include "parameters.h"
-#include "Thermal/thermal.cpp"
+#include "thermal_1d.h"
 #include <iostream>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -56,10 +56,10 @@ int main() {
         kk = (i+1) % M;
         t += DT;
 
-        thermal_1d::bc_q1_q2_1d(N, u[k]);
-        thermal_1d::dt_cond_conv_1d(N, u[k], t, u[kk]);
+        thermal_1d::bc_q1_q2(N, u[k]);
+        thermal_1d::dt_cond_conv(N, u[k], t, u[kk]);
         for (int j = 0; j < N; j++) u[kk][j] = u[k][j] + DT * u[kk][j];
-        thermal_1d::bc_q1_q2_1d(N, u[kk]);
+        thermal_1d::bc_q1_q2(N, u[kk]);
 
         fflush(stdout);
 

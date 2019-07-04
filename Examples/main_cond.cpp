@@ -1,5 +1,5 @@
 #include "parameters.h"
-#include "Thermal/thermal.cpp"
+#include <thermal_1d.h>
 #include <iostream>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -42,7 +42,7 @@ int main() {
 
         u[kk][0] = T_0;
         u[kk][N-1] = T_F;
-        thermal_1d::dt_cond_1d(N, u[k], 0e0, u[kk]);
+        thermal_1d::dt_cond(N, u[k], 0e0, u[kk]);
         for (int j = 0; j < N; j++) u[kk][j] = u[k][j] + CFL * (u[kk][j]);
 
         fflush(stdout);

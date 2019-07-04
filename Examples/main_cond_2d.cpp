@@ -1,5 +1,5 @@
 #include "parameters.h"
-#include "Thermal/thermal.cpp"
+#include "thermal_2d.h"
 #include <iostream>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -41,10 +41,10 @@ int main() {
         kk = (i+1) % M;
         t += DT;
 
-        thermal_2d::bc_te_tn_tw_ts_2d(NX, NY, u[k]);
-        thermal_2d::dt_cond_2d(NX, NY, u[k], t, u[kk]);
+        thermal_2d::bc_te_tn_tw_ts(NX, NY, u[k]);
+        thermal_2d::dt_cond(NX, NY, u[k], t, u[kk]);
         for (int j = 0; j < NX*NY; j++) u[kk][j] = u[k][j] + DT * u[kk][j];
-        thermal_2d::bc_te_tn_tw_ts_2d(NX, NY, u[kk]);
+        thermal_2d::bc_te_tn_tw_ts(NX, NY, u[kk]);
 
         fflush(stdout);
 
